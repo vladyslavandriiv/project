@@ -1,0 +1,33 @@
+<!-- petbook/records/templates/records/dashboard.html -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя панель</title>
+</head>
+<body>
+    <h1>Панель користувача</h1>
+
+    <p>Привіт, {{ request.user.username }}!</p>
+
+    <h2>Мої тварини</h2>
+    {% if animals %}
+        <ul>
+            {% for animal in animals %}
+                <li>
+                    {{ animal.name }} ({{ animal.species }})
+                    — <a href="{% url 'records:update_animal' animal.id %}">редагувати</a>
+                    — <a href="{% url 'records:delete_animal' animal.id %}">видалити</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас ще немає доданих тварин. <a href="{% url 'records:create_animal' %}">Додати першу</a>.</p>
+    {% endif %}
+
+    <p><a href="{% url 'records:create_animal' %}">Додати нову тварину</a></p>
+    <p><a href="{% url 'records:list_doctors' %}">Список лікарів</a></p>
+    <p><a href="{% url 'records:list_visits' %}">Візити</a></p>
+    <p><a href="{% url 'records:logout' %}">Вийти</a></p>
+</body>
+</html>
